@@ -1,13 +1,31 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-image: url('https://www.toledoblade.com/image/2020/03/12/1140x_a10-7_cTC/dna-3539309-1920-jpg.jpg');
+  background-size: cover;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.cell {
+  box-sizing: border-box;
+  border: 2px solid grey;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.grid {
+  line-height: 0;
+  width:150px;
+  margin-top: 25px;
+  margin: auto;
+}
+
+.off {
+  background-color: white;
+}
+
+.on {
+  background-color: black;
+}
+
+.cell:hover { 
+  background: #00CCFF;
 }
