@@ -31,11 +31,6 @@ export class Main extends React.Component {
                 if (Math.floor(Math.random() * 20) + 1 === 1) {
                     arrCopy[i][j] = true;
                 }
-            }
-        }
-
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.columns; j++) {
                 if (arrCopy[i][j]) liveCells += 1;
             }
         }
@@ -85,8 +80,10 @@ export class Main extends React.Component {
                     if (initialGrid[i + 1][j - 1]) count++; // checking [-1, 1]
                 if (i < this.rows - 1 && j < this.columns - 1)
                     if (initialGrid[i + 1][j + 1]) count++; // checking [1, 1]
+                // final checks to determine dead or alive cell
                 if (initialGrid[i][j] && (count < 2 || count > 3))
                     arrCopy[i][j] = false;
+                // final checks to determine dead or alive cell
                 if (!initialGrid[i][j] && count === 3) arrCopy[i][j] = true;
                 if (arrCopy[i][j]) liveCells += 1;
             }
@@ -101,11 +98,18 @@ export class Main extends React.Component {
 
     selectBox(row, column) {
         let arrCopy = this.state.fullGrid.map(inner => inner.slice());
-        arrCopy[row][column] = !arrCopy[row][column];
+        let num = 0;
+        if (arrCopy[row][column]) {
+            arrCopy[row][column] = false;
+            num = -1;
+        } else {
+            arrCopy[row][column] = true;
+            num = 1;
+        }
         this.setState({
             fullGrid: arrCopy,
             generation: this.state.generation + 1,
-            liveCells: this.state.liveCells + 1,
+            liveCells: this.state.liveCells + num,
         });
     }
 
@@ -118,6 +122,8 @@ export class Main extends React.Component {
         return (
             <div>
                 <h1>Conway&apos;s Game of Life</h1>
+                <h2>Live Cells: {this.state.liveCells}</h2>
+                <h2>Generations: {this.state.generation}</h2>
                 <Button
                     startButton={this.startButton}
                     stopButton={this.stopButton}
@@ -130,8 +136,6 @@ export class Main extends React.Component {
                     row={this.rows}
                     selectBox={this.selectBox}
                 />
-                <h2>Live Cells: {this.state.liveCells}</h2>
-                <h2>Generations: {this.state.generation}</h2>
             </div>
         );
     }
