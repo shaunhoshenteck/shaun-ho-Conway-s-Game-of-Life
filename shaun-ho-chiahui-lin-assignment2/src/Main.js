@@ -10,6 +10,7 @@ export class Main extends React.Component {
         this.columns = 50;
         this.state = {
             generation: 0,
+            liveCells: null,
             fullGrid: Array(this.rows)
                 .fill()
                 .map(() => Array(this.columns).fill(false)),
@@ -24,6 +25,7 @@ export class Main extends React.Component {
 
     initialSeed() {
         let arrCopy = this.state.fullGrid.map(inner => inner.slice());
+        let liveCells = 0;
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.columns; j++) {
                 if (Math.floor(Math.random() * 20) + 1 === 1) {
@@ -31,8 +33,15 @@ export class Main extends React.Component {
                 }
             }
         }
+
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.columns; j++) {
+                if (arrCopy[i][j]) liveCells += 1;
+            }
+        }
         this.setState({
             fullGrid: arrCopy,
+            liveCells: liveCells,
         });
     }
 
@@ -44,6 +53,7 @@ export class Main extends React.Component {
         this.setState({
             fullGrid: newGrid,
             generation: 0,
+            liveCells: 0,
         });
     }
 
@@ -59,7 +69,7 @@ export class Main extends React.Component {
     start() {
         let initialGrid = this.state.fullGrid;
         let arrCopy = this.state.fullGrid.map(inner => inner.slice());
-
+        let liveCells = 0;
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.columns; j++) {
                 let count = 0;
@@ -78,12 +88,14 @@ export class Main extends React.Component {
                 if (initialGrid[i][j] && (count < 2 || count > 3))
                     arrCopy[i][j] = false;
                 if (!initialGrid[i][j] && count === 3) arrCopy[i][j] = true;
+                if (arrCopy[i][j]) liveCells += 1;
             }
         }
 
         this.setState({
             fullGrid: arrCopy,
             generation: this.state.generation + 1,
+            liveCells: liveCells,
         });
     }
 
@@ -93,6 +105,7 @@ export class Main extends React.Component {
         this.setState({
             fullGrid: arrCopy,
             generation: this.state.generation + 1,
+            liveCells: this.state.liveCells + 1,
         });
     }
 
@@ -117,6 +130,7 @@ export class Main extends React.Component {
                     row={this.rows}
                     selectBox={this.selectBox}
                 />
+                <h2>Live Cells: {this.state.liveCells}</h2>
                 <h2>Generations: {this.state.generation}</h2>
             </div>
         );
