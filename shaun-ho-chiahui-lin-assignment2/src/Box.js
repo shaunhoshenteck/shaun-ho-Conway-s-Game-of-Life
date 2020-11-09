@@ -25,7 +25,6 @@ export class Box extends React.Component {
 
 Box.propTypes = {
     boxClass: PropTypes.string,
-    key: PropTypes.string,
     boxDxDy: PropTypes.string,
     row: PropTypes.number,
     col: PropTypes.number,

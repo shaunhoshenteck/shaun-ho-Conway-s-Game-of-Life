@@ -27,5 +27,9 @@ body {
 }
 
 .cell:hover { 
-  background: #00CCFF;
+  background: #05d85d;
+}
+
+.centered {
+  margin: auto;
 }

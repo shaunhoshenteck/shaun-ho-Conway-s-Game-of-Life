@@ -3,15 +3,11 @@ import { PropTypes } from 'prop-types';
 import { Box } from './Box';
 
 export class Grid extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let width = this.props.cols * 20;
         let arrOfRows = [];
         let boxClass = '';
-        console.log(this.props.row);
+        // console.log(this.props.row);
         for (let i = 0; i < this.props.row; i++) {
             for (let j = 0; j < this.props.cols; j++) {
                 let boxDxDy = '(' + i + ' , ' + j + ')';
@@ -28,7 +24,7 @@ export class Grid extends React.Component {
                 );
             }
         }
-        console.log(arrOfRows);
+        // console.log(arrOfRows);
         return (
             <div className="grid" style={{ width: width }}>
                 {arrOfRows}
