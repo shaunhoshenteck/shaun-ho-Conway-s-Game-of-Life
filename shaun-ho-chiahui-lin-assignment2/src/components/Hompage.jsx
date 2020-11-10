@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 import logo from './dna.png';
 import { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 const Homepage = () => {
     const [boardState, setBoardState] = useState({
@@ -52,14 +52,16 @@ const Homepage = () => {
             <nav>
                 <img className="logo" src={logo} />
                 <ul>
-                    <li>
-                        <a className="onPage" href="#">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Rules</a>
-                    </li>
+                    <Link to="/">
+                        <li>
+                            <a className="onPage">Home</a>
+                        </li>
+                    </Link>
+                    <Link to="/rules">
+                        <li>
+                            <a>Rules</a>
+                        </li>
+                    </Link>
                 </ul>
             </nav>
             <div className="center">

@@ -88,3 +88,32 @@ p .submit {
     margin: 30px auto;
 
 }
+
+#msg {
+    color: red;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.rulebox {
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid gold;
+}
+
+.rulebox div {
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.rulebox li{
+    font-size: 25px;
+    list-style-type: none;
+    color: white;
+    text-align: left;
+    line-height: 50px;
+    padding: 15px;
+}
