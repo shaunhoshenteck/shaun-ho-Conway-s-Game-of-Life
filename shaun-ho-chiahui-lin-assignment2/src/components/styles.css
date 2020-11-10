@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+}
+
+nav {
+    height: 100px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.logo {
+    width: 85px;
+    height: auto;
+    padding-left: 30px;
+    padding-top: 5px;
+}
+
+nav ul {
+    float: right;
+    margin-right: 40px;
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0px 12px;
+    line-height: 100px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+}
+
+nav ul li a.onPage, 
+nav ul li a:hover {
+    border-radius: 10px;
+    background: red;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-family: sans-serif;
+    user-select: none;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.center h1 {
+    color: rgb(245, 245, 245);
+    font-size: 65px;
+    font-weight: bold;
+}
+
+.center h3 {
+    color: rgb(252, 252, 252);
+    font-size: 30px;
+    font-weight: bold;
+    margin: 15px;
+}
+
+p .selectNums {
+    width: 200px;
+    height: 30px;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+p .submit {
+    display: block;
+    font-size: 20px;
+    height: 45px;
+    width: 180px;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+    cursor: pointer;
+    border: 1px solid red;
+    border-radius: 25px;
+    outline: none;
+    margin: 30px auto;
+
+}
