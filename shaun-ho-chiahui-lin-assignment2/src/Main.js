@@ -1,142 +1,180 @@
-import React from 'react';
-import { Grid } from './Grid';
-import { Button } from './Button';
+import React from "react";
+import { useState, useContext, useEffect } from "react";
+import Grid from "./Grid";
+import { Button } from "./Button";
+import { BoardContext } from "./BoardContext";
+import { GameContext } from "./GameContext";
 
-export class Main extends React.Component {
-    constructor(props) {
-        super(props);
-        this.speed = 300;
-        this.rows = 50;
-        this.columns = 50;
-        this.state = {
-            generation: 0,
-            liveCells: null,
-            fullGrid: Array(this.rows)
-                .fill()
-                .map(() => Array(this.columns).fill(false)),
-        };
-        this.selectBox = this.selectBox.bind(this);
-        this.start = this.start.bind(this);
-        this.startButton = this.startButton.bind(this);
-        this.stopButton = this.stopButton.bind(this);
-        this.clearBoard = this.clearBoard.bind(this);
-        this.initialSeed = this.initialSeed.bind(this);
-    }
+const Main = () => {
+  const [boardState, setBoardState] = useContext(BoardContext);
+  const [gameState, setGameState] = useContext(GameContext);
+  const [speed, setSpeed] = useState(1000);
 
-    initialSeed() {
-        let arrCopy = this.state.fullGrid.map(inner => inner.slice());
-        let liveCells = 0;
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.columns; j++) {
-                if (Math.floor(Math.random() * 20) + 1 === 1) {
-                    arrCopy[i][j] = true;
-                }
-                if (arrCopy[i][j]) liveCells += 1;
-            }
+  const initialSeed = () => {
+    let status = {};
+    let liveCells = 0;
+    for (let i = 0; i < boardState.nRow; i++) {
+      for (let j = 0; j < boardState.nCol; j++) {
+        let idx = i * boardState.nCol + j + 1;
+        let val = Math.floor(Math.random() * 2);
+        status[idx] = val;
+        if (val === 1) {
+          liveCells += 1;
         }
-        this.setState({
-            fullGrid: arrCopy,
-            liveCells: liveCells,
-        });
+      }
     }
+    return [status, liveCells];
+  };
 
-    clearBoard() {
-        let newGrid = Array(this.rows)
-            .fill()
-            .map(() => Array(this.columns).fill(false));
-
-        this.setState({
-            fullGrid: newGrid,
-            generation: 0,
-            liveCells: 0,
-        });
-    }
-
-    startButton() {
-        clearInterval(this.generationInterval);
-        this.generationInterval = setInterval(this.start, this.speed);
-    }
-
-    stopButton() {
-        clearInterval(this.generationInterval);
-    }
-
-    start() {
-        let initialGrid = this.state.fullGrid;
-        let arrCopy = this.state.fullGrid.map(inner => inner.slice());
-        let liveCells = 0;
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.columns; j++) {
-                let count = 0;
-                // Logic taken from https://www.youtube.com/watch?v=PM0_Er3SvFQ
-                if (i > 0) if (initialGrid[i - 1][j]) count++; // checking [0, -1] if not in first row
-                if (i > 0 && j > 0) if (initialGrid[i - 1][j - 1]) count++; // checking [-1, -1] if i and j not in first row
-                if (i > 0 && j < this.columns - 1)
-                    if (initialGrid[i - 1][j + 1]) count++; // checking [1, -1]
-                if (j < this.columns - 1) if (initialGrid[i][j + 1]) count++; // checking [1, 0] if j is not last column
-                if (j > 0) if (initialGrid[i][j - 1]) count++; // checking [-1, 0] if j is not first column
-                if (i < this.rows - 1) if (initialGrid[i + 1][j]) count++; // checking [0, 1] if i is not first row
-                if (i < this.rows - 1 && j > 0)
-                    if (initialGrid[i + 1][j - 1]) count++; // checking [-1, 1]
-                if (i < this.rows - 1 && j < this.columns - 1)
-                    if (initialGrid[i + 1][j + 1]) count++; // checking [1, 1]
-                // final checks to determine dead or alive cell
-                if (initialGrid[i][j] && (count < 2 || count > 3))
-                    arrCopy[i][j] = false;
-                // final checks to determine dead or alive cell
-                if (!initialGrid[i][j] && count === 3) arrCopy[i][j] = true;
-                if (arrCopy[i][j]) liveCells += 1;
-            }
+  const addSeed = () => {
+    let status = boardState.currentBoard;
+    let liveCells = boardState.liveCells;
+    for (let i = 0; i < boardState.nRow; i++) {
+      for (let j = 0; j < boardState.nCol; j++) {
+        var idx = i * boardState.nCol + j + 1;
+        if (status[idx] === 1) {
+          continue;
         }
-
-        this.setState({
-            fullGrid: arrCopy,
-            generation: this.state.generation + 1,
-            liveCells: liveCells,
-        });
+        if (Math.floor(Math.random() * 20) + 1 === 1) {
+          status[idx] = 1;
+        }
+        if (status[idx]) liveCells += 1;
+      }
     }
+    setBoardState((state) => ({
+      ...state,
+      currentBoard: status,
+      liveCells: liveCells,
+    }));
+  };
 
-    selectBox(row, column) {
-        let arrCopy = this.state.fullGrid.map(inner => inner.slice());
-        let num = 0;
-        if (arrCopy[row][column]) {
-            arrCopy[row][column] = false;
-            num = -1;
+  const clearBoard = () => {
+    let status = {};
+    for (let i = 0; i < boardState.nRow; i++) {
+      for (let j = 0; j < boardState.nCol; j++) {
+        let idx = i * boardState.nCol + j + 1;
+        status[idx] = 0;
+      }
+    }
+    setBoardState((state) => ({
+      ...state,
+      currentBoard: status,
+      liveCells: 0,
+    }));
+    setGameState((state) => ({
+      ...state,
+      generation: 0,
+    }));
+  };
+
+  const startButton = () => {
+    let gameMode = gameState.gameMode;
+    if (gameMode === 1) {
+      setGameState((state) => ({
+        ...state,
+        gameMode: 1 - gameMode,
+      }));
+    }
+  };
+
+  const stopButton = () => {
+    let gameMode = gameState.gameMode;
+    if (gameMode === 0) {
+      setGameState((state) => ({
+        ...state,
+        gameMode: 1 - gameMode,
+      }));
+    }
+  };
+
+  const displayHeatButton = () => {
+    let heat = gameState.heat;
+    console.log(heat);
+    setGameState((state) => ({
+      ...state,
+      heat: 1 - heat,
+    }));
+  };
+
+  const selectBox = (row, column) => {
+    let arrCopy = boardState.currentBoard.map((inner) => inner.slice());
+    let num = 0;
+    if (arrCopy[row][column]) {
+      arrCopy[row][column] = false;
+      num = -1;
+    } else {
+      arrCopy[row][column] = true;
+      num = 1;
+    }
+    let generation = gameState.generation + 1;
+    let liveCells = boardState.liveCells + num;
+    setBoardState((state) => ({
+      ...state,
+      currentBoard: arrCopy,
+      liveCells: liveCells,
+    }));
+    setGameState((state) => ({ ...state, generation: generation }));
+  };
+
+  const updateLastAlive = (board) => {
+    let lastAlive = {};
+    for (let i = 0; i < boardState.nRow; i++) {
+      for (let j = 0; j < boardState.nCol; j++) {
+        let idx = i * boardState.nCol + j + 1;
+        if (board[idx] === 0) {
+          lastAlive[idx] = [0, 0];
         } else {
-            arrCopy[row][column] = true;
-            num = 1;
+          lastAlive[idx] = [1, 1];
         }
-        this.setState({
-            fullGrid: arrCopy,
-            generation: this.state.generation + 1,
-            liveCells: this.state.liveCells + num,
-        });
+      }
     }
+    return lastAlive;
+  };
 
-    componentDidMount() {
-        this.initialSeed();
-        this.startButton();
+  const changeSpeed = (e) => {
+    if (gameState.gameMode === 1) {
+      const val = e.target.value;
+      setSpeed(val);
     }
+  };
 
-    render() {
-        return (
-            <div>
-                <h1>Conway&apos;s Game of Life</h1>
-                <h2>Live Cells: {this.state.liveCells}</h2>
-                <h2>Generations: {this.state.generation}</h2>
-                <Button
-                    startButton={this.startButton}
-                    stopButton={this.stopButton}
-                    initialSeed={this.initialSeed}
-                    clear={this.clearBoard}
-                />
-                <Grid
-                    fullGrid={this.state.fullGrid}
-                    cols={this.columns}
-                    row={this.rows}
-                    selectBox={this.selectBox}
-                />
-            </div>
-        );
-    }
-}
+  useEffect(() => {
+    var [board, liveCells] = initialSeed();
+    setBoardState((state) => ({
+      ...state,
+      currentBoard: board,
+      liveCells: liveCells,
+      lastAlive: updateLastAlive(board),
+    }));
+  }, []);
+
+  return (
+    <div>
+      <h1>Conway&apos;s Game of Life</h1>
+      <h2>Game Status: {gameState.gameMode ? "paused" : "start"}</h2>
+      <h2>Live Cells: {boardState.liveCells}</h2>
+      <h2>Generations: {gameState.generation}</h2>
+      <br></br>
+      <h2>Speed: {speed}</h2>
+      <input
+        className="speed"
+        type="number"
+        name="column"
+        placeholder="Enter a speed from 100 to 1000"
+        onChange={(e) => changeSpeed(e)}
+      />
+      <br />
+      <br />
+      <Button
+        startButton={() => startButton()}
+        stopButton={() => stopButton()}
+        initialSeed={() => addSeed()}
+        clear={() => clearBoard()}
+        displayHeat={() => displayHeatButton()}
+      />
+      <Grid selectBox={() => selectBox()} speed={speed}></Grid>
+    </div>
+  );
+};
+
+export default Main;
