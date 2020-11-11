@@ -11,18 +11,18 @@ const Box = (props) => {
   const [color, setColor] = useState("white");
 
   const colors = [
-    "#f7fcf0",
-    "#e0f3db",
-    "#ccebc5",
-    "#a8ddb5",
-    "#7bccc4",
-    "#4eb3d3",
-    "#2b8cbe",
-    "#0868ac",
-    "#084081",
-    "#022146",
-    "white",
-    "black",
+    "#eeebc8",
+    "#f3eb76",
+    "#f5d365",
+    "#ebb60a",
+    "#e9854b",
+    "#e45d0f",
+    "#da0404",
+    "#ad0202",
+    "#740808",
+    "#360000",
+    "#ffffff",
+    "#000000",
   ];
 
   const getColor = () => {

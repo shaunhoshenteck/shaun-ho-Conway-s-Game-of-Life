@@ -29,6 +29,8 @@ const Main = () => {
   const addSeed = () => {
     let status = boardState.currentBoard;
     let liveCells = boardState.liveCells;
+    let lastAlive = boardState.lastAlive;
+
     for (let i = 0; i < boardState.nRow; i++) {
       for (let j = 0; j < boardState.nCol; j++) {
         var idx = i * boardState.nCol + j + 1;
@@ -37,6 +39,7 @@ const Main = () => {
         }
         if (Math.floor(Math.random() * 20) + 1 === 1) {
           status[idx] = 1;
+          lastAlive[idx] = [1, 1];
         }
         if (status[idx]) liveCells += 1;
       }
@@ -45,21 +48,25 @@ const Main = () => {
       ...state,
       currentBoard: status,
       liveCells: liveCells,
+      lastAlive: lastAlive,
     }));
   };
 
   const clearBoard = () => {
     let status = {};
+    let lastAlive = {};
     for (let i = 0; i < boardState.nRow; i++) {
       for (let j = 0; j < boardState.nCol; j++) {
         let idx = i * boardState.nCol + j + 1;
         status[idx] = 0;
+        lastAlive[idx] = [1, 1];
       }
     }
     setBoardState((state) => ({
       ...state,
       currentBoard: status,
       liveCells: 0,
+      lastAlive: lastAlive,
     }));
     setGameState((state) => ({
       ...state,
