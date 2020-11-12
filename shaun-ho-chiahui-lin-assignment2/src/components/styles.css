@@ -11,10 +11,10 @@ nav {
 }
 
 .logo {
-    width: 85px;
+    width: 100px;
     height: auto;
     padding-left: 30px;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 
 nav ul {
@@ -43,7 +43,7 @@ nav ul li a:hover {
     background: red;
 }
 
-.center {
+.center{
     position: absolute;
     left: 50%;
     top: 55%;

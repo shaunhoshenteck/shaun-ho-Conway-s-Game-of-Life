@@ -1,36 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-image: url('./dna.jpg');
   background-size: cover;
 }
 
-.cell {
-  box-sizing: border-box;
-  border: 2px solid grey;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
+
+.logo {
+  width: 85px;
+  height: auto;
+  padding-left: 30px;
+  padding-top: 5px;
 }
 
-.grid {
-  line-height: 0;
-  width:150px;
-  margin-top: 25px;
-  margin: auto;
+.center-gamepage {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  padding-bottom: 10px;
 }
 
-.off {
-  background-color: white;
+.center-gamepage h1{
+  font-size: 65px;
+  margin-bottom: 20px;
 }
 
-.on {
-  background-color: black;
+.center-gamepage h2 .paused {
+  color: red;
+  margin-top: 5px;
 }
 
-.cell:hover { 
-  background: #05d85d;
+.center-gamepage h2 .live {
+  color:greenyellow;
+  margin-top: 5px;
+}
+
+.stats {
+  display: inline-flex;
+  width: 350px;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.speed {
+  margin-top: 10px;
+  width: 230px;
+  height: 15px;
+  border-radius: 25px;
+  border: 2px solid white;
 }
 
 .centered {
-  margin: auto;
-  margin-bottom: 10px;
+  display: inline-flex;
+  width: 500px;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  width: 90px;
+  padding: 2px 5px;
+  border: 1.5px solid crimson;
+  border-radius: 25px;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: crimson;
+  color: white;
+}
+
+.backdrop {
+  background-color: black;
+  opacity: 0.85;
+  margin: 20px;
+  border: 1px solid gold;
+  padding: 10px;
+}
+
+
+.grid-container {
+  box-sizing: border-box;
+}
+
+.backdrop {
+  background-color: black;
+  border: 1px solid gold;
+  opacity: 0.9;
+  border-radius: 25px;
+  width: 700px;
+  margin: 20px auto;
+}
+
+.box {
+  cursor: pointer;
+}
+
+.box:hover {
+  background-color: lightblue;
 }
