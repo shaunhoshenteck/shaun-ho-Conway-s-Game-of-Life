@@ -4,7 +4,7 @@
   "description": "Web Development A2: Conway's Game of Life",
   "main": "index.js",
   "scripts": {
-    "start": "cd shaun-ho-chiahui-lin-assignment2 && node index.js",
+    "start": "cd shaun-ho-chiahui-lin-assignment2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
