@@ -11,6 +11,7 @@ const Grid = props => {
     const [boardState, setBoardState] = useContext(BoardContext);
     const [gameState, setGameState] = useContext(GameContext);
 
+    // function to create the actual board based on rows and columns
     const createBoard = () => {
         let rows = [];
         for (let i = 0; i < boardState.nRow; i++) {
@@ -24,6 +25,8 @@ const Grid = props => {
         return <div className="board">{rows}</div>;
     };
 
+    // function that contains the main logic of the game, looks in all 8 directions and checks whether cells are valid
+    // if they are, update those cells into a new object. Concept was introduced to me by Chia-Hui (Godfrey)
     const gameStart = oldBoard => {
         var lastAlive = boardState.lastAlive;
         var generation = gameState.generation;
@@ -33,7 +36,7 @@ const Grid = props => {
                 if (i === 0 && j === 0) {
                     continue;
                 }
-                dirs.push([i, j]);
+                dirs.push([i, j]); // generate 8 directions array
             }
         }
         let updated = {};
@@ -62,14 +65,14 @@ const Grid = props => {
                 }
                 // if the old cell was alive
                 else {
-                    // the old cell dies with less than 2 or more than 3 live neighbors
+                    // the old cell dies with less than 2 neighbors or more than 3 live neighbors
                     if (liveNeighbors < 2 || liveNeighbors > 3) {
                         updated[idx] = 0;
                     } else {
                         updated[idx] = 1;
                     }
                 }
-                // updateLastAlive
+                // if in updated, the cell is alive so we have to update the last alive array
                 if (updated[idx] === 1) {
                     let last = lastAlive[idx][1];
                     console.log('last: ' + last);
@@ -89,6 +92,7 @@ const Grid = props => {
             }
         }
 
+        // after done making changes to updated, count the number of live cells
         let liveCells = 0;
         for (let i = 0; i < boardState.nRow; i++) {
             for (let j = 0; j < boardState.nCol; j++) {

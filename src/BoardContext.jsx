@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
-const BoardContext = createContext([{}, () => {}]);
+const BoardContext = createContext();
 
 const BoardContextProvider = props => {
     const [boardState, setBoardState] = useState({

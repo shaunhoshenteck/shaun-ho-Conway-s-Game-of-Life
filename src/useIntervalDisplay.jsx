@@ -12,6 +12,7 @@ const useIntervalDisplay = (callback, delay) => {
             savedCallback.current();
         }
         console.log(gameState.gameMode);
+        console.log('hello');
         if (!gameState.gameMode && delay !== null) {
             let id = setInterval(tick, delay);
             return () => clearInterval(id);
