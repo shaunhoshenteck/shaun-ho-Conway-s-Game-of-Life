@@ -1,0 +1,8 @@
+.box {
+  border: 2px solid grey;
+  width: 1.5vw;
+  height: 1.5vw;
+  color: black;
+  font-size: 0.8vw;
+  text-align: center;
+}
