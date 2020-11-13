@@ -30,7 +30,16 @@ const Grid = props => {
     const gameStart = oldBoard => {
         var lastAlive = boardState.lastAlive;
         var generation = gameState.generation;
-        let dirs = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+        let dirs = [
+            [-1, -1],
+            [-1, 0],
+            [-1, 1],
+            [0, -1],
+            [0, 1],
+            [1, -1],
+            [1, 0],
+            [1, 1],
+        ];
         let updated_board = {};
         for (let i = 0; i < boardState.nRow; i++) {
             for (let j = 0; j < boardState.nCol; j++) {
@@ -52,8 +61,7 @@ const Grid = props => {
                 var idx = i * boardState.nCol + j + 1;
                 if (oldBoard[idx] === 0) {
                     updated_board[idx] = liveNeighbors === 3 ? 1 : 0;
-                }
-                else {
+                } else {
                     // Alive box dies with less than 2 neighbors or more than 3 live neighbors
                     if (liveNeighbors < 2 || liveNeighbors > 3) {
                         updated_board[idx] = 0;

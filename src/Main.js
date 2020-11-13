@@ -226,7 +226,10 @@ const Main = () => {
                     />
                     <br />
                     <br />
-                    <p>if you want change the cell color, please pause the game!</p>
+                    <p>
+                        if you want change the cell color, please pause the
+                        game!
+                    </p>
                     <br />
                     <Button
                         startButton={() => startButton()}
