@@ -82,10 +82,6 @@ const Box = props => {
             liveCells: liveCells,
         }));
         console.log(props.boxDxDy);
-        console.log(
-            'id: ' + currentBoard[props.boxDxDy],
-            'lastAlive: ' + lastAlive[props.boxDxDy]
-        );
     };
 
     // set color called when display, generation, or currentBoard changes

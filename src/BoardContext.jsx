@@ -7,9 +7,9 @@ const BoardContextProvider = props => {
     const [boardState, setBoardState] = useState({
         nRow: 10,
         nCol: 10,
+        liveCells: 0,
         currentBoard: {},
         lastAlive: {},
-        liveCells: 0,
     });
     return (
         <BoardContext.Provider value={[boardState, setBoardState]}>

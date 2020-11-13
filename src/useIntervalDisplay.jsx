@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { GameContext } from './GameContext';
 
+//Reference: https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+
 const useIntervalDisplay = (callback, delay) => {
     const savedCallback = useRef();
     const [gameState, setGameState] = useContext(GameContext);

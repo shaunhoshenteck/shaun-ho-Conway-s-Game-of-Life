@@ -10,7 +10,7 @@ import logo from '././components/dna.png';
 const Main = () => {
     const [boardState, setBoardState] = useContext(BoardContext);
     const [gameState, setGameState] = useContext(GameContext);
-    const [speed, setSpeed] = useState(1000);
+    const [speed, setSpeed] = useState(800);
 
     // initial seed function sets up the board with live and dead cells based on 5% rule
     // cells are stored in status starting from index 1 to index (total cells)
@@ -225,6 +225,8 @@ const Main = () => {
                         onChange={e => changeSpeed(e)}
                     />
                     <br />
+                    <br />
+                    <p>if you want change the cell color, please pause the game!</p>
                     <br />
                     <Button
                         startButton={() => startButton()}
